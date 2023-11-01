@@ -1,8 +1,9 @@
-import React from "react";
+import {React, useState} from "react";
 import Navbar from "../components/Navbar";
 import SVG from "../components/SVG";
 
 const Home = () => {
+  const [loadData, setloadData] = useState(4)
   const images = [
     {
       title: "Product 1",
@@ -85,14 +86,17 @@ const Home = () => {
         "https://www.kasandbox.org/programming-images/avatars/old-spice-man.png",
     },
   ];
-
+  const moreImage = images.slice(0, loadData);
+  const handleLoadData = () => {
+    setloadData(loadData + (images.length-loadData))
+  }
   return (
     <div>
       <Navbar />
       <hr />
       <div className="w-4/5 m-auto">
-        <div className="flex flex-wrap w-full ">
-          {images.map((image, index) => (
+        <div className="flex flex-wrap w-full justify-center">
+          {moreImage.map((image, index) => (
             <div key={index} className="mx-2 my-2 relative">
               <img
                 className="bg-gray-200 py-20 px-24 rounded-md"
@@ -141,6 +145,10 @@ const Home = () => {
           ))}
         </div>
       </div>
+      <div className="flex justify-center mt-32">
+        <button className={`bg-rose-600 text-white rounded-md py-6 px-20 text-lg ${loadData === images.length ? "hidden" : ""}`} onClick={handleLoadData}>View All Product</button>
+      </div>
+          
     </div>
   );
 };
