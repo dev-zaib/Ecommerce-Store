@@ -1,26 +1,27 @@
 import React from "react";
 import SVG from "./SVG";
 import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux/es/hooks/useSelector";
 
 function Navbar() {
+  const cart = useSelector((state) => state.products.cart);
+  const favouriteProducts = useSelector((state) => state.products.favouriteProducts);
+  const products = useSelector((state) => state.products.moveAllToCart);
+
   return (
-    <nav class="bg-white flex justify-between items-center px-4 py-5 w-4/5 m-auto">
+    <nav class="bg-whitproductSlicee flex justify-between items-center px-4 py-5 w-4/5 m-auto">
       <div className="flex w-1/3 justify-between items-center">
         <div className="font-bold text-4xl">Exclusive</div>
         <div className="flex gap-10">
-        <NavLink
+          <NavLink
             to="/"
-            className={({ isActive }) =>
-              isActive ? "border-b-2" : ""
-            }
+            className={({ isActive }) => (isActive ? "border-b-2" : "")}
           >
             Home
           </NavLink>
           <NavLink
             to="/products"
-            className={({ isActive }) =>
-              isActive ? "border-b-2" : ""
-            }
+            className={({ isActive }) => (isActive ? "border-b-2" : "")}
           >
             Products
           </NavLink>
@@ -32,8 +33,7 @@ function Navbar() {
           <input
             placeholder="What are you looking for?"
             className="outline-none bg-gray-100"
-          />
-          <button>
+          ></input>
           <SVG
             width={24}
             height={24}
@@ -43,38 +43,40 @@ function Navbar() {
             strokeLinecap="round"
             strokeWidth="1.5"
           />
-          </button>
-          
         </div>
-        <SVG
-          width={32}
-          height={32}
-          viewBox="0 0 32 32"
-          pathName="Wishlist"
-          strokeColor="black"
-          strokeLinecap="round"
-          strokeWidth="1.5"
-        />
+        <div className="">
+          <SVG
+            width={32}
+            height={32}
+            viewBox="0 0 32 32"
+            pathName="Wishlist"
+            strokeColor="black"
+            strokeLinecap="round"
+            strokeWidth="1.5"
+          />
+          {favouriteProducts.length}
+        </div>
+
         <NavLink
-            to="/checkout"
-            className={({ isActive }) =>
-              isActive ? "border-b-2" : ""
-            }
-          >
-            <SVG
-          width={32}
-          height={32}
-          viewBox="0 0 32 32"
-          pathName="Cart1"
-          pathName2="Cart2"
-          pathName3="Cart3"
-          pathName4="Cart4"
-          strokeColor="black"
-          strokeLinecap="round"
-          strokeWidth="1.5"
-        />
-          </NavLink>
-        
+          to="/checkout"
+          className={({ isActive }) => (isActive ? "border-b-2" : "")}
+        >
+          <div>
+          <SVG
+            width={32}
+            height={32}
+            viewBox="0 0 32 32"
+            pathName="Cart1"
+            pathName2="Cart2"
+            pathName3="Cart3"
+            pathName4="Cart4"
+            strokeColor="black"
+            strokeLinecap="round"
+            strokeWidth="1.5"
+          />
+          {cart.length+products.length}
+          </div>
+        </NavLink>
       </div>
     </nav>
   );

@@ -1,4 +1,4 @@
-export const images = [
+export const data = [
     {
       title: "Product 1",
       newPrice: "120",
