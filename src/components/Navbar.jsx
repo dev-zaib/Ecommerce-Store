@@ -32,7 +32,8 @@ function Navbar() {
           <input
             placeholder="What are you looking for?"
             className="outline-none bg-gray-100"
-          ></input>
+          />
+          <button>
           <SVG
             width={24}
             height={24}
@@ -42,6 +43,8 @@ function Navbar() {
             strokeLinecap="round"
             strokeWidth="1.5"
           />
+          </button>
+          
         </div>
         <SVG
           width={32}
