@@ -52,7 +52,13 @@ function Navbar() {
           strokeLinecap="round"
           strokeWidth="1.5"
         />
-        <SVG
+        <NavLink
+            to="/checkout"
+            className={({ isActive }) =>
+              isActive ? "border-b-2" : ""
+            }
+          >
+            <SVG
           width={32}
           height={32}
           viewBox="0 0 32 32"
@@ -64,6 +70,8 @@ function Navbar() {
           strokeLinecap="round"
           strokeWidth="1.5"
         />
+          </NavLink>
+        
       </div>
     </nav>
   );
