@@ -1,18 +1,22 @@
 import React from "react";
 import Navbar from "../components/Navbar";
 import { Link } from "react-router-dom";
-// import { useSelector, useDispatch } from "react-redux";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { useDispatch } from "react-redux/es/hooks/useDispatch";
-import { removeAll } from "../app/features/productSlice";
+import { removeAll, updateQuantity } from "../app/features/productSlice";
 
 function Checkout() {
   const cartProducts = useSelector((state) => state.products.cart);
+  console.log(cartProducts)
   const dispatch = useDispatch();
   const removeToCart = () => {
     dispatch(removeAll());
-    console.log("removeAll", cart);
+    console.log("removeAll", cartProducts);
   };
+  const handleQuantityChange = (id, quantity) => {
+    dispatch(updateQuantity({ id, quantity }));
+  };
+
   return (
     <div>
       <Navbar />
@@ -51,9 +55,11 @@ function Checkout() {
                   <input
                     type="number"
                     className="w-16 h-10 border border-gray-300 rounded-md px-2"
+                    value={product.quantity}
+                onChange={(e) => handleQuantityChange(product.id, e.target.value)}
                   />
                 </td>
-                <td class="p-4">${product.newPrice}</td>
+                <td class="p-4">${product.newPrice * product.quantity}</td>
               </tr>
             ))}
           </tbody>
@@ -67,7 +73,7 @@ function Checkout() {
           </Link>
           <button
             className="px-16 py-4 rounded-md border-black border-2"
-            onClick={removeToCart}
+            onClick={()=>removeToCart()}
           >
             Remove All
           </button>
