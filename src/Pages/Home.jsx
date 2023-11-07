@@ -24,24 +24,24 @@ const Home = () => {
       <hr />
       <Poster />
       <div className="w-4/5 m-auto">
-        <div className="flex flex-wrap w-full justify-center">
+        <div className="flex flex-wrap w-full justify-center gap-3">
           {moreImage.map((image, index) => (
             <div key={index} className="mx-2 my-2 relative">
               <img
-                className="bg-gray-200 py-20 px-24 rounded-md"
+                className="bg-[#F5F5F5] py-20 px-24 rounded-md"
                 src={image.image}
                 alt={image.alt}
               />
               <div className="pt-2 text-lg font-bold">
                 <h1>{image.title}</h1>
                 <div className="flex gap-5">
-                  <h1 className="text-rose-600">${image.newPrice}</h1>
-                  <h1 className="line-through text-gray-400">
+                  <h1 className="text-[#DB4444]">${image.newPrice}</h1>
+                  <h1 className="line-through text-[#000000] text-opacity-[0.5]">
                     ${image.oldPrice}
                   </h1>
                 </div>
               </div>
-              <div className="absolute top-3 left-3 px-2 py-1 text-white rounded-lg bg-rose-600">
+              <div className="absolute top-3 left-3 px-2 py-1 text-white rounded-lg bg-[#DB4444]">
                 {image.discountInPercentage}%
               </div>
               <div
@@ -62,9 +62,9 @@ const Home = () => {
           ))}
         </div>
       </div>
-      <div className="flex justify-center mt-10">
+      <div className="flex justify-center my-10">
         <button
-          className={`bg-rose-600 text-white rounded-md py-6 px-20 text-lg ${
+          className={`bg-[#DB4444] text-white rounded-md py-6 px-16 text-lg ${
             loadData === images.length ? "hidden" : ""
           }`}
           onClick={handleLoadData}

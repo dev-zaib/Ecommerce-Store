@@ -9,7 +9,10 @@ function Navbar() {
   const products = useSelector((state) => state.products.moveAllToCart);
 
   return (
-    <nav class="bg-whitproductSlicee flex justify-between items-center px-4 py-5 w-4/5 m-auto">
+    <>
+    <div className="py-7 bg-black">
+    </div>
+    <nav class="flex justify-between items-center px-4 py-5 w-4/5 m-auto ">
       <div className="flex w-1/3 justify-between items-center">
         <div className="font-bold text-4xl">Exclusive</div>
         <div className="flex gap-10">
@@ -29,7 +32,7 @@ function Navbar() {
       </div>
 
       <div className="flex items-center gap-5">
-        <div className="border px-3 py-1.5 flex rounded-md bg-gray-100">
+        <div className="border px-2.5 py-1.5 flex justify-around rounded-md bg-[#F5F5F5]">
           <input
             placeholder="What are you looking for?"
             className="outline-none bg-gray-100"
@@ -44,7 +47,7 @@ function Navbar() {
             strokeWidth="1.5"
           />
         </div>
-        <div className="">
+        <div className="relative">
           <SVG
             width={32}
             height={32}
@@ -54,14 +57,14 @@ function Navbar() {
             strokeLinecap="round"
             strokeWidth="1.5"
           />
-          {favouriteProducts.length}
+          <div className="absolute bottom-4 left-4 bg-[#DB4444] rounded-full px-2 text-white">{favouriteProducts.length}</div>
         </div>
 
         <NavLink
           to="/checkout"
           className={({ isActive }) => (isActive ? "border-b-2" : "")}
         >
-          <div>
+          <div className="relative">
           <SVG
             width={32}
             height={32}
@@ -74,11 +77,12 @@ function Navbar() {
             strokeLinecap="round"
             strokeWidth="1.5"
           />
-          {cart.length+products.length}
+          <div className="absolute bottom-4 left-4 bg-[#DB4444] rounded-full px-2 text-white">{cart.length+products.length}</div>
           </div>
         </NavLink>
       </div>
     </nav>
+    </>
   );
 }
 

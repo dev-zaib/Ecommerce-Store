@@ -4,7 +4,7 @@ import appleLogo from "../assets/apple.png"
 import SVG from "../components/SVG";
 function Poster() {
   return (
-    <div className="w-[70%] m-auto h-92 bg-black  flex flex-row   ">
+    <div className="w-[78%] m-auto h-92 bg-black  flex flex-row mt-10 mb-32">
       <div className="ml-16">
         <div className="flex flex-row  mt-6 ">
           <img className="w-20 h-20" src={appleLogo} />

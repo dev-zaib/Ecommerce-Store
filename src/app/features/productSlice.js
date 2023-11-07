@@ -6,13 +6,27 @@ const productSlice = createSlice({
     cart: [],
     favouriteProducts: [],
     moveAllToCart: [],
+    cartTotalAmount: 0,
+    cartQuantity: 0,
   },
   reducers: {
     addCart(state, action) {
-      state.cart.push(action.payload);
+      const productToAdd = action.payload;
+      const isProductInCart = state.cart.find(item => item.title === productToAdd.title);
+    
+      if (!isProductInCart) {
+        state.cart.push(productToAdd);
+      }
     },
     moveAllToCart(state, action) {
-      state.moveAllToCart.push(...action.payload);
+      const productsToMove = action.payload;
+      productsToMove.forEach(product => {
+        const isProductInCart = state.cart.find(item => item.title === product.title);
+        if (!isProductInCart) {
+          state.cart.push(product);
+        }
+      })
+      
     },
     addFavourite(state, action) {
       state.favouriteProducts.push(action.payload);
@@ -23,12 +37,16 @@ const productSlice = createSlice({
     searchTerm(state, action) {
       state.searchTerm = action.payload;
     },
+    
+    remove(state, action) {
+      state.cart = state.cart.filter(
+        (product) => product.id !== action.payload.id
+      );
+    },
     updateQuantity(state, action) {
       const { id, quantity } = action.payload;
-      const product = state.cart.find((item) => item.id === id);
-      if (product) {
-        product.quantity = quantity;
-      }
+      const product = state.cart.find((product) => product.id === id);
+      product.quantity = quantity;
     },
   },
 });
@@ -40,6 +58,9 @@ export const {
   remove,
   removeAll,
   searchTerm,
-  updateQuantity
+  updateQuantity,
+  getTotals,
+  updateProductPrice
+  
 } = productSlice.actions;
 export default productSlice.reducer;
