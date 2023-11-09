@@ -3,16 +3,26 @@ import Navbar from "../components/Navbar";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { useDispatch } from "react-redux/es/hooks/useDispatch";
-import { removeAll, updateProductPrice } from "../app/features/productSlice";
+import {
+  removeAll,
+  increment,
+  decrement,
+} from "../app/features/productSlice";
 
 function Checkout() {
   const cartProducts = useSelector((state) => state.products.cart);
-  console.log(cartProducts);
   const dispatch = useDispatch();
   const removeToCart = () => {
     dispatch(removeAll());
     console.log("removeAll", cartProducts);
   };
+  const incrementInProduct = (title) => {
+    dispatch(increment(title));
+  };
+  const decrementInProduct = (title) => {
+    dispatch(decrement(title));
+  };  
+  
   return (
     <div>
       <Navbar />
@@ -26,43 +36,46 @@ function Checkout() {
           </div>
         </div>
 
-        <div class=" w-full rounded text-xl">
-          <div class="font-bold">
+        <div className="w-full rounded text-xl">
+          <div className="font-bold">
             <div className=" flex justify-between py-6 shadow">
-              <th className="px-6">Product</th>
-              <th>Price</th>
-              <th>Quantity</th>
-              <th className="px-6">Subtotal</th>
+              <div className="px-6">Product</div>
+              <div>Price</div>
+              <div>Quantity</div>
+              <div className="px-6">Subtotal</div>
             </div>
           </div>
           <div>
             {cartProducts.map((product, index) => (
-              <div class="text-center flex justify-between py-6 shadow items-center mt-12">
-                <div class="ml-2">
+              <div
+                className="text-center flex justify-between py-6 shadow items-center mt-12"
+                key={index}
+              >
+                <div className="ml-2">
                   <div className="flex justify-center items-center">
                     <img src={product.image} className="w-12 h-12" />
                     <h1>{product.title}</h1>
                   </div>
                 </div>
 
-                <div class="mr-8">${product.newPrice}</div>
+                <div className="mr-8">${product.newPrice}</div>
 
                 <div class="mr-16">
                   <div className="flex justify-center ">
-                    <div className="border-2 flex items-center justify-between border-gray-500 rounded-md py-1 px-3">
-                      <span className="mr-6">01</span>
+                    <div className="border-2 flex items-center justify-between border-black border-opacity-[0.2] rounded-md py-1 px-3">
+                      <span className="mr-6">{product.quantity}</span>
                       <div className="flex flex-col">
                         <button
                           className="text-xs mb-2"
                           onClick={() => {
-                            incrementProduct();
+                            incrementInProduct(product.title);
                           }}
                         >
                           Ʌ
                         </button>
                         <button
                           className=" text-xs"
-                          onClick={() => decrementProduct()}
+                          onClick={() => decrementInProduct(product.title)}
                         >
                           V
                         </button>
@@ -70,7 +83,9 @@ function Checkout() {
                     </div>
                   </div>
                 </div>
-                <div class="mr-12">$75{() => getTotals()}</div>
+                <div className="mr-12">
+                  ${product.newPrice * product.quantity}
+                </div>
               </div>
             ))}
           </div>
@@ -78,37 +93,39 @@ function Checkout() {
         <div className="flex justify-between text-center mt-10">
           <Link
             to="/products"
-            className="px-16 py-4  rounded-md border-black border-2"
+            className="px-16 py-4 font-bold text-lg rounded-md border border-black border-opacity-[0.5]"
           >
             Return to Products
           </Link>
           <button
-            className="px-16 py-4 rounded-md border-black border-2"
+            className="px-16 py-4 font-bold text-lg rounded-md border border-black border-opacity-[0.5]"
             onClick={() => removeToCart()}
           >
             Remove All
           </button>
         </div>
-        <div className="rounded-md border-black border-2 mt-16 mb-4 w-1/3 py-8 px-4">
-          <div className="font-bold text-xl">Cart Total</div>
-          <div className="flex justify-between mt-4">
-            <div>Subtotal:</div>
-            <div>{() => getTotals}</div>
-          </div>
-          <hr />
-          <div className="flex justify-between mt-4">
-            <div>Shipping</div>
-            <div>Free</div>
-          </div>
-          <hr />
-          <div className="flex justify-between mt-4">
-            <div>Total:</div>
-            <div>$1750</div>
-          </div>
-          <div className="flex justify-center mt-8">
-            <button className="px-10 py-4 rounded-md text-[#FAFAFA] bg-[#DB4444]">
-              Download Receipt
-            </button>
+        <div className="rounded-md border-black border-2 w-1/3 my-32 p-6">
+          <div className="font-bold text-2xl">Cart Total</div>
+          <div className="font-medium text-lg">
+            <div className="flex justify-between mt-8 mb-4">
+              <div>Subtotal:</div>
+              <div>${}</div>
+            </div>
+            <hr className="bg-black h-0.5 bg-opacity-5" />
+            <div className="flex justify-between my-4">
+              <div>Shipping:</div>
+              <div>Free</div>
+            </div>
+            <hr className="bg-black h-0.5 bg-opacity-5" />
+            <div className="flex justify-between mt-4">
+              <div>Total:</div>
+              <div>$1750</div>
+            </div>
+            <div className="flex justify-center mt-8">
+              <button className="px-10 py-4 rounded-md text-[#FAFAFA] bg-[#DB4444]">
+                Download Receipt
+              </button>
+            </div>
           </div>
         </div>
       </div>

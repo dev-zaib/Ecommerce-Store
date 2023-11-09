@@ -6,27 +6,28 @@ const productSlice = createSlice({
     cart: [],
     favouriteProducts: [],
     moveAllToCart: [],
-    cartTotalAmount: 0,
-    cartQuantity: 0,
   },
   reducers: {
     addCart(state, action) {
       const productToAdd = action.payload;
-      const isProductInCart = state.cart.find(item => item.title === productToAdd.title);
-    
+      const isProductInCart = state.cart.find(
+        (item) => item.title === productToAdd.title
+      );
+
       if (!isProductInCart) {
         state.cart.push(productToAdd);
       }
     },
     moveAllToCart(state, action) {
       const productsToMove = action.payload;
-      productsToMove.forEach(product => {
-        const isProductInCart = state.cart.find(item => item.title === product.title);
+      productsToMove.forEach((product) => {
+        const isProductInCart = state.cart.find(
+          (item) => item.title === product.title
+        );
         if (!isProductInCart) {
           state.cart.push(product);
         }
-      })
-      
+      });
     },
     addFavourite(state, action) {
       state.favouriteProducts.push(action.payload);
@@ -37,16 +38,27 @@ const productSlice = createSlice({
     searchTerm(state, action) {
       state.searchTerm = action.payload;
     },
-    
+
     remove(state, action) {
       state.cart = state.cart.filter(
-        (product) => product.id !== action.payload.id
+        (product) => product.title !== action.payload.title
       );
     },
-    updateQuantity(state, action) {
-      const { id, quantity } = action.payload;
-      const product = state.cart.find((product) => product.id === id);
-      product.quantity = quantity;
+    increment(state, action) {
+      const title = action.payload;
+      const product = state.cart.find((product) => product.title === title);
+
+      if (product) {
+        product.quantity += 1;
+      }
+    },
+    decrement(state, action) {
+      const title = action.payload; // Assuming you pass the product ID in the action payload
+      const product = state.cart.find((product) => product.title === title);
+
+      if (product && product.quantity > 1) {
+        product.quantity -= 1;
+      }
     },
   },
 });
@@ -58,9 +70,8 @@ export const {
   remove,
   removeAll,
   searchTerm,
-  updateQuantity,
-  getTotals,
-  updateProductPrice
-  
+  increment,
+  decrement,
+  getSubTotal,
 } = productSlice.actions;
 export default productSlice.reducer;

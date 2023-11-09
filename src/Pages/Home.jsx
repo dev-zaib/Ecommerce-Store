@@ -16,8 +16,13 @@ const Home = () => {
   const dispatch = useDispatch();
   const addToFavourite = (images) => {
     dispatch(addFavourite(images));
-    console.log("addToCart", images);
+    const productIndex = moreImage.findIndex(
+      (item) => item.title === images.title
+    );
+    setFavoriteProductIndices([...favoriteProductIndices, productIndex]);
   };
+  const [favoriteProductIndices, setFavoriteProductIndices] = useState([]);
+
   return (
     <div>
       <Navbar />
@@ -53,9 +58,12 @@ const Home = () => {
                   height={32}
                   viewBox="0 0 32 32"
                   pathName="Wishlist"
-                  strokeColor="black"
+                  strokeColor={
+                    favoriteProductIndices.includes(index) ? "none" : "black"
+                  }
                   strokeLinecap="round"
                   strokeWidth="1.5"
+                  fill={favoriteProductIndices.includes(index) ? "red" : "none"}
                 />
               </div>
             </div>

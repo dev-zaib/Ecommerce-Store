@@ -1,32 +1,37 @@
 import React from "react";
 import phone from "../assets/iPhone.jpg";
-import appleLogo from "../assets/apple.png"
+import appleLogo from "../assets/apple.png";
 import SVG from "../components/SVG";
 function Poster() {
   return (
-    <div className="w-[78%] m-auto h-92 bg-black  flex flex-row mt-10 mb-32">
-      <div className="ml-16">
-        <div className="flex flex-row  mt-6 ">
-          <img className="w-20 h-20" src={appleLogo} />
-          <h1 className="text-white mt-8">Iphone 14 Series</h1>
+    <div className="w-[78%] m-auto h-92 bg-black  flex mt-10 mb-32">
+      <div className="ml-16 flex flex-col justify-around mt-8">
+        <div className="flex items-center gap-2">
+          <img className="h-14 " src={appleLogo} alt="hello" />
+          <h1 className="text-white text-xl mt-2">iPhone 14 Series</h1>
         </div>
-        <h1 className="text-white  w-[280px] text-5xl  mt-4">Upto 10%</h1>
-        <h1 className="text-white  w-[280px] text-5xl  mt-4">off Voucher</h1>
-        <button className="text-white mt-8 text-2xl underline flex flex-row  ml-8">
-          Shop Now{" "}
+        <div className="text-white text-5xl font-bold">
+          <h1>Up to 10%</h1>
+          <h1 className="mt-3">off Voucher</h1>
+        </div>
+        <button className="text-white text-xl flex items-center mb-10">
+          <div>
+            <h1>Shop Now</h1>
+            <hr />
+          </div>
           <SVG
-            width={26}
-            height={26}
+            width={24}
+            height={24}
             viewBox="0 0 24 24"
-            strokeColor="black"
+            strokeColor="white"
             strokeWidth="1.5"
             strokeLinecap="round"
             strokeLinejoin="round"
+            pathName={"Arrow"}
           />
         </button>
       </div>
       <div>
-        {" "}
         <img className="ml-16" src={phone} alt="hello" />
       </div>
     </div>
